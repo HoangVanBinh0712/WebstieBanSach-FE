@@ -11,15 +11,19 @@ import ProductDetail from '../components/frontend/collections/ProductDetail';
 import Cart from '../components/frontend/Cart';
 import Checkout from '../components/frontend/Checkout';
 import Thankyou from '../components/frontend/Thankyou';
+import DashBoard from '../components/frontend/DashBoard';
+import BookDetail from '../components/frontend/book/BookDetail';
 
 const publicRoutesList = [
-    { path: '/', exact: true, name: 'Home', component: Home },
+    { path: '/home', exact: true, name: 'Home', component: DashBoard },
     { path: '/about', exact: true, name: 'About', component: About },
     { path: '/contact', exact: true, name: 'Contact', component: Contact },
     { path: '/403', exact: true, name: 'Page403', component: Page403 },
     { path: '/404', exact: true, name: 'Page404', component: Page404 },
     { path: '/login', exact: true, name: 'Login', component: Login },
     { path: '/register', exact: true, name: 'Register', component: Register },
+    { path: '/books/:id', exact: true, name: 'BookDetail', component: BookDetail },
+
     { path: '/collections', exact: true, name: 'ViewCategory', component: ViewCategory },
     { path: '/collections/:slug', exact: true, name: 'ViewProduct', component: ViewProduct },
     { path: '/collections/:category/:product', exact: true, name: 'ProductDetail', component: ProductDetail },
