@@ -1,23 +1,45 @@
+import axios from "axios";
 import { Button, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import swal from "sweetalert";
 
 const SingleBook = ({ book }) => {
+  const history = useHistory();
+  const onAddToCartClick = async (e) => {
+    e.preventDefault();
+
+    try {
+      const addToCart = await axios.post(`api/user/cart`, {
+        bookId: book.id,
+        quantity: 1,
+      });
+      if (addToCart.data.success)
+        swal("Success", addToCart.data.message, "success");
+      else swal("Warning", "Try again", "warning");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onImageClick = (e) => {
+    e.preventDefault();
+    history.push(`/books/${book.id}`);
+  };
   return (
-    <Card style={{ width: "18rem", margin: "5px 10px 5px 10px " }}>
+    <Card style={{ width: "20%", margin: "5px 10px 5px 10px " }}>
       <Card.Img
         variant="top"
         src="https://tse3.mm.bing.net/th?id=OIP.ErEvm0ZhfKGItuRrJahuEgHaE7&pid=Api&P=0"
-        width="100px"
-        height="180px"
+        onClick={onImageClick}
       />
       <Card.Body>
         <Card.Title>
           <Link to={"/books/" + book.id}> {book.name}</Link>
         </Card.Title>
-        <Card.Text>{book.description}</Card.Text>
         <Card.Text>Giá: {book.price} VNĐ</Card.Text>
 
-        <Button variant="primary">Mua ngay</Button>
+        <Button variant="primary" onClick={onAddToCartClick}>
+          Thêm vào giỏ hàng
+        </Button>
       </Card.Body>
     </Card>
   );

@@ -6,7 +6,8 @@ import "./css/DashBoard.css";
 import { Button } from "react-bootstrap";
 import BookPaging from "./book/BookPaging";
 import * as queryString from "query-string";
-
+import SearchIcon from "../../assets/admin/assets/img/searchIcon.png";
+import swal from "sweetalert";
 function DashBoard() {
   let params = queryString.parse(window.location.search);
 
@@ -21,10 +22,15 @@ function DashBoard() {
   const [searchForm, setSearchForm] = useState({
     search: "",
     category: null,
+    sortBy: 0,
+    sortDescending: false,
+    minPrice: null,
+    maxPrice: null,
   });
   const [url, setUrl] = useState(window.location);
 
-  const { search, category } = searchForm;
+  const { search, category, sortBy, sortDescending, minPrice, maxPrice } =
+    searchForm;
   const onChangeSearchForm = (event) =>
     setSearchForm({ ...searchForm, [event.target.name]: event.target.value });
   const onSubmitSearch = () => {
@@ -41,6 +47,16 @@ function DashBoard() {
       let reqParams = "page=1&";
       if (search && search.length !== 0) reqParams += "name=" + search;
       if (category && category > 0) reqParams += "&category=" + category;
+      if (sortBy && sortBy > 0) reqParams += "&sortBy=" + sortBy;
+      if (sortDescending) reqParams += `&sortDescending=` + sortDescending;
+      if (minPrice && minPrice >= 0) reqParams += "&minPrice=" + minPrice;
+      if (maxPrice && maxPrice >= 0) reqParams += "&maxPrice=" + maxPrice;
+      if (parseInt(maxPrice) < parseInt(minPrice))
+        swal(
+          "Warning",
+          "Min price is greater than max price will cause no result found.",
+          "warning"
+        );
 
       setGetParam(reqParams);
     } catch (error) {
@@ -56,6 +72,11 @@ function DashBoard() {
         if (params && params.page) reqParams += `page=${params.page}&`;
         if (params && params.category)
           reqParams += `category=${params.category}&`;
+        if (params && params.sortBy) reqParams += `sortBy=${params.sortBy}&`;
+        if (params && params.sortDescending)
+          reqParams += `sortDescending=${sortDescending}&`;
+        if (params && params.minPrice) reqParams += "minPrice=" + minPrice;
+        if (params && params.maxPrice) reqParams += "&maxPrice=" + maxPrice;
         if (reqParams.length === 0) reqParams = "page=1";
         const bookResponse = await axios.get(
           `api/book/search?limit=12&${reqParams}`
@@ -114,6 +135,43 @@ function DashBoard() {
     <>
       <ul className="ul-nav-search">
         <li>
+          <input
+            type="number"
+            placeholder="Min price"
+            name="minPrice"
+            value={minPrice}
+            onChange={onChangeSearchForm}
+          />
+        </li>
+        <li>
+          <input
+            type="number"
+            placeholder="Max price"
+            name="maxPrice"
+            value={maxPrice}
+            onChange={onChangeSearchForm}
+          />
+        </li>
+        <li>
+          <select
+            name="sortDescending"
+            onChange={onChangeSearchForm}
+            value={sortDescending}
+          >
+            <option value={true}>Sort Descending</option>
+            <option value={false}>Sort Ascending</option>
+          </select>
+        </li>
+        <li>
+          <select name="sortBy" onChange={onChangeSearchForm} value={sortBy}>
+            <option value={0}>Unsorted</option>
+            <option value={1}>Sort by Name</option>
+            <option value={2}>Sort by Author name</option>
+            <option value={4}>Sort by price</option>
+            <option value={8}>Sort by Category</option>
+          </select>
+        </li>
+        <li>
           <select
             name="category"
             onChange={onChangeSearchForm}
@@ -137,7 +195,9 @@ function DashBoard() {
           />
         </li>
         <li>
-          <Button onClick={onSubmitSearch}>Search</Button>
+          <Button className="btn-search" onClick={onSubmitSearch}>
+            Search <img src={SearchIcon} alt="" />
+          </Button>
         </li>
       </ul>
     </>

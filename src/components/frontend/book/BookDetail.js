@@ -103,7 +103,10 @@ const BookDetail = () => {
             <label for="description">
               <strong>Mô tả:</strong>
             </label>
-            <p>{bookState.book.description}</p>
+            {bookState.book.description.split("\n").map((d) => (
+              <p>{d}</p>
+            ))}
+            {/* <p>{bookState.book.description}</p> */}
             <div>
               <strong>Giá:</strong> {bookState.book.price} đ
             </div>

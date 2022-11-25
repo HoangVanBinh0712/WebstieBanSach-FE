@@ -64,6 +64,55 @@ const OrderDetail = () => {
             </tbody>
           </table>
         </div>
+        <div>
+          <div className="row">
+            <div className="col-md-7">
+              <div className="card">
+                <div className="card-header">
+                  <h4>Thông tin đặt hàng</h4>
+                </div>
+                <div className="card-body">
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group mb-3">
+                        <label> Name</label>
+                        <input
+                          type="text"
+                          name="firstname"
+                          value={order.name}
+                          className="form-control"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-md-6">
+                      <div className="form-group mb-3">
+                        <label> Phone Number</label>
+                        <input
+                          type="number"
+                          name="phone"
+                          value={order.phone}
+                          className="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-12">
+                      <div className="form-group mb-3">
+                        <label> Full Address</label>
+                        <textarea
+                          rows="3"
+                          name="address"
+                          value={order.address}
+                          className="form-control"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
 

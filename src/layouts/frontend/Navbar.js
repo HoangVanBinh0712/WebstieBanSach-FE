@@ -34,8 +34,12 @@ function Navbar() {
   } else {
     currentUser = localStorage.getItem("auth_name");
     AuthButtons = (
-      <ul className="navbar-nav">
-        <li className="nav-item">{currentUser}</li>
+      <>
+        <li className="nav-item">
+          <Link className="nav-link" to="#">
+            {currentUser}
+          </Link>
+        </li>
         <li className="nav-item">
           <button
             type="button"
@@ -45,14 +49,14 @@ function Navbar() {
             Logout
           </button>
         </li>
-      </ul>
+      </>
     );
   }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top">
       <div className="container">
-        <Link className="navbar-brand" to="#">
+        <Link className="navbar-brand" to="/">
           Website Book
         </Link>
 
@@ -76,6 +80,16 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="/cart">
+                Cart
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/orders">
+                Orders
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" to="/about">
                 About
               </Link>
@@ -90,16 +104,7 @@ function Navbar() {
                 Collection
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/cart">
-                Cart
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/orders">
-                Orders
-              </Link>
-            </li>
+
             {AuthButtons}
           </ul>
         </div>
