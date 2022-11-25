@@ -18,7 +18,7 @@ const BookDetail = () => {
     e.preventDefault();
 
     try {
-      const addToCart = await axios.post(`api/user/cart`, {
+      const addToCart = await axios.post(`api/user/addCart`, {
         bookId: id,
         quantity: quantity,
       });
@@ -66,7 +66,7 @@ const BookDetail = () => {
           <div className="product-details-image-left">
             <div className="img-holder">
               <img
-                src="https://image.freepik.com/free-photo/books_87394-845.jpg"
+                src={bookState.book.image}
                 alt=""
               />
             </div>

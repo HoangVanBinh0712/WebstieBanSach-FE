@@ -9,7 +9,7 @@ const SingleBook = ({ book }) => {
     e.preventDefault();
 
     try {
-      const addToCart = await axios.post(`api/user/cart`, {
+      const addToCart = await axios.post(`api/user/addCart`, {
         bookId: book.id,
         quantity: 1,
       });
@@ -28,7 +28,7 @@ const SingleBook = ({ book }) => {
     <Card style={{ width: "20%", margin: "5px 10px 5px 10px " }}>
       <Card.Img
         variant="top"
-        src="https://tse3.mm.bing.net/th?id=OIP.ErEvm0ZhfKGItuRrJahuEgHaE7&pid=Api&P=0"
+        src={book.image}
         onClick={onImageClick}
       />
       <Card.Body>

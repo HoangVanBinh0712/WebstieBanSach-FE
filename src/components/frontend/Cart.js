@@ -51,7 +51,7 @@ function Cart() {
   };
   function updateCartQuantity(bookId, quantity) {
     axios
-      .put(`/api/user/cart`, {
+      .put(`/api/user/updateCart`, {
         bookId: bookId,
         quantity: quantity,
       })
@@ -68,7 +68,7 @@ function Cart() {
     const thisClicked = e.currentTarget;
     thisClicked.innerText = "Removing";
 
-    axios.delete(`/api/user/cart/${bookId}`).then((res) => {
+    axios.delete(`/api/user/delCart/${bookId}`).then((res) => {
       if (res.status === 200) {
         swal("Success", res.data.message, "success");
         thisClicked.closest("tr").remove();
@@ -111,7 +111,7 @@ function Cart() {
                   <tr key={idx}>
                     <td width="10%">
                       <img
-                        src={`https://image.freepik.com/free-photo/books_87394-845.jpg`}
+                        src={item.book.image}
                         alt={item.book.name}
                         width="50px"
                         height="50px"
