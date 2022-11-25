@@ -1,4 +1,5 @@
 import { Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const SingleBook = ({ book }) => {
   return (
@@ -10,7 +11,9 @@ const SingleBook = ({ book }) => {
         height="180px"
       />
       <Card.Body>
-        <Card.Title>{book.name}</Card.Title>
+        <Card.Title>
+          <Link to={"/books/" + book.id}> {book.name}</Link>
+        </Card.Title>
         <Card.Text>{book.description}</Card.Text>
         <Card.Text>Giá: {book.price} VNĐ</Card.Text>
 

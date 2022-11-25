@@ -13,7 +13,7 @@ const FrontendLayout = () => {
         <div>
             <Navbar />
             
-                <div>
+                <div className='body-container'>
                         
                     <Switch>
                         {publicRoutesList.map((routedata, idx) => {

@@ -6,8 +6,7 @@ import AdminPrivateRoute from "./AdminPrivateRoute";
 import PublicRoute from "./PublicRoute";
 
 import axios from "axios";
-import GlobalContextProvider from "./context/GlobalContext";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 axios.defaults.baseURL = "http://localhost:8082/";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -23,26 +22,24 @@ axios.interceptors.request.use(function (config) {
 
 function App() {
   return (
-    <GlobalContextProvider>
-      <div className="App">
-        <Router>
-          <Switch>
-            <AdminPrivateRoute path="/admin" name="Admin" />
+    <div className="App">
+      <Router>
+        <Switch>
+          <AdminPrivateRoute path="/admin" name="Admin" />
 
-            <PublicRoute path="/" name="Home" />
+          <PublicRoute path="/" name="Home" />
 
-            {/* <Route path="/login">
+          {/* <Route path="/login">
               {localStorage.getItem('auth_token') ? <Redirect to='/' /> : <Login />}
             </Route>
             <Route path="/register">
               {localStorage.getItem('auth_token') ? <Redirect to='/' /> : <Register />}
             </Route> */}
 
-            {/* <Route path="/admin" name="Admin" render={(props) => <MasterLayout {...props} />} /> */}
-          </Switch>
-        </Router>
-      </div>
-    </GlobalContextProvider>
+          {/* <Route path="/admin" name="Admin" render={(props) => <MasterLayout {...props} />} /> */}
+        </Switch>
+      </Router>
+    </div>
   );
 }
 

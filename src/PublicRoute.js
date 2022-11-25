@@ -9,8 +9,7 @@ function PublicRoute({ ...rest }) {
       {...rest}
       render={(props) => (
         <>
-          {" "}
-          <FrontendLayout {...props} /> <Footer />{" "}
+          <FrontendLayout {...props} /> <Footer />
         </>
       )}
     />

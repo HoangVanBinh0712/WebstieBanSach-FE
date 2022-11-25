@@ -11246,3 +11246,11 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+
+th, tr{
+  text-align: center;
+}
+.body-container{
+  min-height: 620px;
+  width: 100%;
+}

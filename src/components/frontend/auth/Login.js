@@ -36,7 +36,7 @@ function Login() {
           if (res.data.roles[0].authority === "ROLE_ADMIN") {
             history.push("/admin/dashboard");
           } else {
-            history.push("/home");
+            history.push("/");
           }
         } else {
           swal("Warning", "Try again", "warning");
