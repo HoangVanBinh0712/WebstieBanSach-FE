@@ -13,6 +13,8 @@ function Login() {
     error_list: "",
   });
 
+  const [adminLogin, setAdminLogin] = useState(false)
+
   const handleInput = (e) => {
     e.persist();
     setLogin({ ...loginInput, [e.target.name]: e.target.value });
@@ -25,27 +27,36 @@ function Login() {
       username: loginInput.username,
       password: loginInput.password,
     };
-
-    axios
-      .post(`api/login`, data)
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          localStorage.setItem("auth_token", res.data.token);
-          localStorage.setItem("auth_name", res.data.username);
-          if (res.data.roles[0].authority === "ROLE_ADMIN") {
-            history.push("/admin/dashboard");
+    try {
+      let url = ''
+      if (adminLogin)
+        url = 'api/admin/login'
+      else
+        url = 'api/login'
+      axios
+        .post(url, data)
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            localStorage.setItem("auth_token", res.data.token);
+            localStorage.setItem("auth_name", res.data.username);
+            if (res.data.roles[0].authority === "ROLE_ADMIN") {
+              history.push("/admin/dashboard");
+            } else {
+              history.push("/");
+            }
           } else {
-            history.push("/");
+            swal("Warning", "Try again", "warning");
           }
-        } else {
-          swal("Warning", "Try again", "warning");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        swal("Warning", err, "warning");
-      });
+        })
+        .catch((err) => {
+          swal("Warning", "Wrong user name or pasword", "warning");
+        });
+    } catch (error) {
+      swal("Warning", "Wrong user name or pasword", "warning");
+
+    }
+
   };
 
   return (
@@ -87,6 +98,18 @@ function Login() {
                     <span>{loginInput.error_list}</span>
                   </div>
                   <div className="form-group mb-3 d-flex justify-content-center">
+                    <select name='adminLogin' onChange={(e) => {
+                      e.preventDefault()
+                      console.log(e.target.value)
+                      if (e.target.value === 'admin')
+                        setAdminLogin(true)
+                      else setAdminLogin(false)
+                    }}>
+                      <option value="user">User</option>
+                      <option value="admin">Admin</option>
+
+                    </select>
+
                     <button type="submit" className="btn btn-primary">
                       Đăng nhập
                     </button>

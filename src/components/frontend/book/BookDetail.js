@@ -74,9 +74,9 @@ const BookDetail = () => {
               <button className="btn-add-to-cart" onClick={onAddToCartClick}>
                 Thêm vào giỏ hàng
               </button>
-              <button className="btn-buy-now" onClick={onBuyNowClick}>
+              {/* <button className="btn-buy-now" onClick={onBuyNowClick}>
                 Mua ngay
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="product-details-right">
