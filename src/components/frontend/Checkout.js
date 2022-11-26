@@ -56,7 +56,7 @@ function Checkout() {
       address: checkoutInput.address,
       payment: payment,
     };
-    axios.post("api/user/order", data).then((res) => {
+    axios.post("api/user/createOrder", data).then((res) => {
       if (res.status === 200) {
         swal("Success", "Order successfully !", "success");
         //Send to orders page
